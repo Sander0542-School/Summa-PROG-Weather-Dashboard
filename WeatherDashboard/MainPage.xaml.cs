@@ -13,6 +13,8 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using WeatherDashboard.Pages;
+using Windows.Devices.Geolocation;
+using Windows.Storage;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
@@ -23,6 +25,8 @@ namespace WeatherDashboard
     /// </summary>
     public sealed partial class MainPage : Page
     {
+        private ApplicationDataContainer _adclocalSettings = ApplicationData.Current.LocalSettings;
+
         public Dictionary<string, Type> _dstPages;
 
         public MainPage()
@@ -31,9 +35,32 @@ namespace WeatherDashboard
 
             _dstPages = new Dictionary<string, Type>()
             {
-                { "Nav_Home", typeof(Pages.HomePage) },
-                { "Nav_Settings", typeof(Pages.SettingsPage) }
+                { "Nav_Settings", typeof(Pages.SettingsPage) },
+                { "Nav_Weather", typeof(Pages.WeatherPage) },
+                { "Nav_ForeCast", typeof(Pages.ForecastPage) }
             };
+        }
+
+        private async void Page_Loaded(object sender, RoutedEventArgs e)
+        {
+            GeolocationAccessStatus gasRequestStatus = await Geolocator.RequestAccessAsync();
+
+            if (gasRequestStatus == GeolocationAccessStatus.Allowed)
+            {
+                //Navigeer in navigationview naar settingspage
+                SaveLocation();
+            }
+        }
+
+        private async void SaveLocation()
+        {
+            Geolocator gLocator = new Geolocator();
+            gLocator.DesiredAccuracyInMeters = 100;
+
+            Geoposition gPoistion = await gLocator.GetGeopositionAsync();
+
+            _adclocalSettings.Values["lng"] = gPoistion.Coordinate.Point.Position.Longitude;
+            _adclocalSettings.Values["lat"] = gPoistion.Coordinate.Point.Position.Latitude;
         }
 
         private void nvNavigation_ItemInvoked(NavigationView sender, NavigationViewItemInvokedEventArgs args)
@@ -82,7 +109,7 @@ namespace WeatherDashboard
 
         private void fRootFrame_Loaded(object sender, RoutedEventArgs e)
         {
-            fRootFrame.Navigate(_dstPages["Nav_Home"]);
+            fRootFrame.Navigate(_dstPages["Nav_Weather"]);
         }
     }
 }

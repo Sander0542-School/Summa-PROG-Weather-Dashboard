@@ -6,13 +6,17 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
-    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+    Loaded="Page_Loaded">
 
     <Grid>
         <NavigationView x:Name="nvNavigation" IsBackButtonVisible="Collapsed" ItemInvoked="nvNavigation_ItemInvoked" Header="Home">
             <NavigationView.MenuItems>
                 <NavigationViewItem Icon="Home">
-                    <TextBlock Tag="Nav_Home" Text="Home"/>
+                    <TextBlock Tag="Nav_Weather" Text="Location"/>
+                </NavigationViewItem>
+                <NavigationViewItem Icon="Home">
+                    <TextBlock Tag="Nav_ForeCast" Text="Forecast"/>
                 </NavigationViewItem>
             </NavigationView.MenuItems>
             <NavigationView.Content>

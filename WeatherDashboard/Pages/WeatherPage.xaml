@@ -1,0 +1,50 @@
+﻿<Page
+    x:Class="WeatherDashboard.Pages.WeatherPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:WeatherDashboard.Pages"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+
+        <StackPanel Margin="20" Padding="10" Orientation="Vertical">
+
+            <TextBlock Margin="0,0,0,4" Style="{StaticResource BodyTextBlockStyle}" Text="Locatie"/>
+            <TextBox x:Name="tbLocatie" Margin="0,0,0,16"/>
+
+            <TextBlock Margin="0,0,0,4" Style="{StaticResource BodyTextBlockStyle}" Text="Temperatuur"/>
+            <TextBox x:Name="tbTemperatuur" Margin="0,0,0,16"/>
+
+            <TextBlock Margin="0,0,0,4" Style="{StaticResource BodyTextBlockStyle}" Text="Minimum Temperatuur"/>
+            <TextBox x:Name="tbMinTemperatuur" Margin="0,0,0,16"/>
+
+            <TextBlock Margin="0,0,0,4" Style="{StaticResource BodyTextBlockStyle}" Text="Maximum Temperatuur"/>
+            <TextBox x:Name="tbMaxTemperatuur" Margin="0,0,0,16"/>
+
+            <TextBlock Margin="0,0,0,4" Style="{StaticResource BodyTextBlockStyle}" Text="Luchtvochtigheid"/>
+            <TextBox x:Name="tbLuchtvochtigheid" Margin="0,0,0,16"/>
+
+            <TextBlock Margin="0,0,0,4" Style="{StaticResource BodyTextBlockStyle}" Text="Wind Snelheid"/>
+            <TextBox x:Name="tbWindSnelheid" Margin="0,0,0,16"/>
+
+            <TextBlock Margin="0,0,0,4" Style="{StaticResource BodyTextBlockStyle}" Text="Wind Richting"/>
+            <TextBox x:Name="tbWindRichting" Margin="0,0,0,16"/>
+
+        </StackPanel>
+
+        <StackPanel Margin="20" Padding="10" Grid.Column="1" Orientation="Vertical">
+
+            <TextBlock Margin="0,0,0,4" Style="{StaticResource BodyTextBlockStyle}" Text="Omschrijving"/>
+            <RichEditBox x:Name="tbOmschrijving" VerticalAlignment="Stretch" Margin="0,0,0,16"/>
+            
+        </StackPanel>
+
+    </Grid>
+</Page>
