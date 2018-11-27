@@ -17,32 +17,32 @@
         <StackPanel Margin="20" Padding="10" Orientation="Vertical">
 
             <TextBlock Margin="0,0,0,4" Style="{StaticResource BodyTextBlockStyle}" Text="Locatie"/>
-            <TextBox x:Name="tbLocatie" Margin="0,0,0,16"/>
+            <TextBox IsReadOnly="True" x:Name="tbLocatie" Margin="0,0,0,16"/>
 
             <TextBlock Margin="0,0,0,4" Style="{StaticResource BodyTextBlockStyle}" Text="Temperatuur"/>
-            <TextBox x:Name="tbTemperatuur" Margin="0,0,0,16"/>
+            <TextBox IsReadOnly="True" x:Name="tbTemperatuur" Margin="0,0,0,16"/>
 
             <TextBlock Margin="0,0,0,4" Style="{StaticResource BodyTextBlockStyle}" Text="Minimum Temperatuur"/>
-            <TextBox x:Name="tbMinTemperatuur" Margin="0,0,0,16"/>
+            <TextBox IsReadOnly="True" x:Name="tbMinTemperatuur" Margin="0,0,0,16"/>
 
             <TextBlock Margin="0,0,0,4" Style="{StaticResource BodyTextBlockStyle}" Text="Maximum Temperatuur"/>
-            <TextBox x:Name="tbMaxTemperatuur" Margin="0,0,0,16"/>
+            <TextBox IsReadOnly="True" x:Name="tbMaxTemperatuur" Margin="0,0,0,16"/>
 
             <TextBlock Margin="0,0,0,4" Style="{StaticResource BodyTextBlockStyle}" Text="Luchtvochtigheid"/>
-            <TextBox x:Name="tbLuchtvochtigheid" Margin="0,0,0,16"/>
+            <TextBox IsReadOnly="True" x:Name="tbLuchtvochtigheid" Margin="0,0,0,16"/>
 
             <TextBlock Margin="0,0,0,4" Style="{StaticResource BodyTextBlockStyle}" Text="Wind Snelheid"/>
-            <TextBox x:Name="tbWindSnelheid" Margin="0,0,0,16"/>
+            <TextBox IsReadOnly="True" x:Name="tbWindSnelheid" Margin="0,0,0,16"/>
 
             <TextBlock Margin="0,0,0,4" Style="{StaticResource BodyTextBlockStyle}" Text="Wind Richting"/>
-            <TextBox x:Name="tbWindRichting" Margin="0,0,0,16"/>
+            <TextBox IsReadOnly="True" x:Name="tbWindRichting" Margin="0,0,0,16"/>
 
         </StackPanel>
 
         <StackPanel Margin="20" Padding="10" Grid.Column="1" Orientation="Vertical">
 
             <TextBlock Margin="0,0,0,4" Style="{StaticResource BodyTextBlockStyle}" Text="Omschrijving"/>
-            <RichEditBox x:Name="tbOmschrijving" VerticalAlignment="Stretch" Margin="0,0,0,16"/>
+            <RichEditBox IsReadOnly="True" x:Name="tbOmschrijving" VerticalAlignment="Stretch" Margin="0,0,0,16"/>
             
         </StackPanel>
 

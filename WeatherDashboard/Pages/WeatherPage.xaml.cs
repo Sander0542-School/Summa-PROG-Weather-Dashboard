@@ -51,9 +51,9 @@ namespace WeatherDashboard.Pages
                 WeatherJSON weather = await openWeatherAPI.GetCurrent(lat, lng);
 
                 tbLocatie.Text = weather.Name;
-                Double dTemp = weather.Main.Temp - 273.15;
-                tbTemperatuur.Text = dTemp.ToString();
-                tbMinTemperatuur.Text = weather.Main.TempMin;
+                Double dTemp = Math.Round(weather.Main.Temp - 273.15);
+                tbTemperatuur.Text = dTemp.ToString() + "°C";
+               // tbMinTemperatuur.Text = weather.Main.TempMin;
             }
         }
 
