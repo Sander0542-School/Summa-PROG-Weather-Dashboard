@@ -51,9 +51,42 @@ namespace WeatherDashboard.Pages
                 WeatherJSON weather = await openWeatherAPI.GetCurrent(lat, lng);
 
                 tbLocatie.Text = weather.Name;
-                Double dTemp = Math.Round(weather.Main.Temp - 273.15);
-                tbTemperatuur.Text = dTemp.ToString() + "°C";
-               // tbMinTemperatuur.Text = weather.Main.TempMin;
+                tbTemperatuur.Text = KToC(weather.Main.Temp).ToString() + "°C";
+                tbMinTemperatuur.Text =  KToC(weather.Main.TempMin) + "°C";
+                tbMaxTemperatuur.Text =  KToC(weather.Main.TempMax) + "°C";
+                tbLuchtvochtigheid.Text = weather.Main.Humidity.ToString() + "%";
+                tbWindSnelheid.Text = weather.Wind.Speed.ToString() + " km/h";
+                tbWindRichting.Text = Richting(weather.Wind.Deg);
+                //tbOmschrijving.Document.SetText(Windows.UI.Text.TextSetOptions.None, weather.Weather.Description.ToString());
+
+            }
+        }
+
+        public String Richting(String sDeg)
+        {
+            try {
+                Double dDeg = Convert.ToDouble(sDeg);
+                string[] sRichting = { "Noord", "Noord-noord-oost", "Noord-oost", "Oost-noord-oost", "Oost", "Oost-zuid-oost", "Zuid-oost", "Zuid-zuid-oost", "Zuid", "Zuid-zuid-west", "Zuid-west", "West-zuid-west", "West", "West-noord-west", "Noord-West", "Noord-noord-west", "Noord" };
+                return sRichting[(int)Math.Round(((double)dDeg * 10 % 3600) / 225)];
+            }
+            catch {
+                return "Geen richting gevonden";
+            }
+                
+
+        }
+
+        public String KToC(Double dTemp)
+        {
+            try
+            {
+                string sTemp;
+                dTemp = Math.Round(dTemp - 273.15);
+                return sTemp = dTemp.ToString();
+            }
+            catch
+            {
+                return "Geen info";
             }
         }
 
