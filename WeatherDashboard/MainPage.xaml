@@ -12,11 +12,11 @@
     <Grid>
         <NavigationView x:Name="nvNavigation" IsBackButtonVisible="Collapsed" ItemInvoked="nvNavigation_ItemInvoked" Header="Home">
             <NavigationView.MenuItems>
-                <NavigationViewItem Icon="Home">
-                    <TextBlock Tag="Nav_Weather" Text="Location"/>
+                <NavigationViewItem Icon="Street">
+                    <TextBlock Tag="Nav_Weather" Text="Weers informatie"/>
                 </NavigationViewItem>
-                <NavigationViewItem Icon="Home">
-                    <TextBlock Tag="Nav_ForeCast" Text="Forecast"/>
+                <NavigationViewItem Icon="CalendarDay">
+                    <TextBlock Tag="Nav_ForeCast" Text="Verwachting"/>
                 </NavigationViewItem>
             </NavigationView.MenuItems>
             <NavigationView.Content>

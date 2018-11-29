@@ -47,6 +47,7 @@ namespace WeatherDashboard.Pages
             if (e.Key == VirtualKey.Enter)
             {
                 _adclocalSettings.Values["City"] = tbLocation.Text;
+                Frame.Navigate(typeof(Pages.WeatherPage));
             }
         }
 
@@ -54,6 +55,7 @@ namespace WeatherDashboard.Pages
         {
             _adclocalSettings.Values["City"] = null;
             tbLocation.Text = "";
+            Frame.Navigate(typeof(Pages.WeatherPage));
         }
 
         protected override void OnNavigatedFrom(NavigationEventArgs e)
