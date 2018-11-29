@@ -53,6 +53,7 @@ namespace WeatherDashboard.Pages
         private void btnCurrentLocation_Click(object sender, RoutedEventArgs e)
         {
             _adclocalSettings.Values["City"] = null;
+            tbLocation.Text = "";
         }
 
         protected override void OnNavigatedFrom(NavigationEventArgs e)
@@ -72,7 +73,9 @@ namespace WeatherDashboard.Pages
 
         private void _navigationHelper_LoadState(object sender, LoadStateEventArgs e)
         {
-
+            if (_adclocalSettings.Values.ContainsKey("City") && _adclocalSettings.Values["City"] != null) {
+                tbLocation.Text = _adclocalSettings.Values["City"].ToString();
+            }
         }
 
 
