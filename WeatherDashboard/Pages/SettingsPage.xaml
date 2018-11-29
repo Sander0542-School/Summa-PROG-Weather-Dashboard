@@ -11,7 +11,8 @@
     <Grid>
       <StackPanel>
           <TextBlock Margin="0,0,0,4" Text="Locatie:"/>
-          <TextBox x:Name="tbLocation" PlaceholderText="Amsterdam,Netherlands"/>
-      </StackPanel>
+          <TextBox x:Name="tbLocation" PlaceholderText="Amsterdam" KeyUp="tbInput_KeyUp"/>
+            <Button x:Name="btnCurrentLocation" Margin="5,5,5,5" Content="Gebruik live locatie" Click="btnCurrentLocation_Click" />
+        </StackPanel>
     </Grid>
 </Page>

@@ -42,23 +42,39 @@ namespace WeatherDashboard.Pages
         public async void LoadWeather()
         {
             OpenWeatherAPI openWeatherAPI = new OpenWeatherAPI();
-            
-            if (_adclocalSettings.Values.ContainsKey("lat") && _adclocalSettings.Values.ContainsKey("lng")) {
+            if (_adclocalSettings.Values.ContainsKey("City"))
+            {
+                string sCity = _adclocalSettings.Values["City"].ToString(); 
+
+                WeatherJSON weather = await openWeatherAPI.GetCurrent(sCity);
+                SetText(weather);
+            }
+            else if (_adclocalSettings.Values.ContainsKey("lat") && _adclocalSettings.Values.ContainsKey("lng")) {
 
                 double.TryParse(_adclocalSettings.Values["lat"].ToString(), out double lat);
                 double.TryParse(_adclocalSettings.Values["lng"].ToString(), out double lng);
 
                 WeatherJSON weather = await openWeatherAPI.GetCurrent(lat, lng);
+                SetText(weather);
+            }
+        }
 
+        public void SetText(WeatherJSON weather)
+        {
+            try
+            {
                 tbLocatie.Text = weather.Name;
                 tbTemperatuur.Text = KToC(weather.Main.Temp).ToString() + "°C";
-                tbMinTemperatuur.Text =  KToC(weather.Main.TempMin) + "°C";
-                tbMaxTemperatuur.Text =  KToC(weather.Main.TempMax) + "°C";
+                tbMinTemperatuur.Text = KToC(weather.Main.TempMin) + "°C";
+                tbMaxTemperatuur.Text = KToC(weather.Main.TempMax) + "°C";
                 tbLuchtvochtigheid.Text = weather.Main.Humidity.ToString() + "%";
                 tbWindSnelheid.Text = weather.Wind.Speed.ToString() + " km/h";
                 tbWindRichting.Text = Richting(weather.Wind.Deg);
                 //tbOmschrijving.Document.SetText(Windows.UI.Text.TextSetOptions.None, weather.Weather.Description.ToString());
-
+            }
+            catch
+            {
+                Frame.Navigate(typeof(Pages.SettingsPage));
             }
         }
 

@@ -47,7 +47,7 @@ namespace WeatherDashboard
 
             if (gasRequestStatus == GeolocationAccessStatus.Allowed)
             {
-                //Navigeer in navigationview naar settingspage
+                //Navigeer in navigationview naar settingspage `               
                 SaveLocation();
             }
         }
