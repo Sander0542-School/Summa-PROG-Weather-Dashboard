@@ -13,6 +13,8 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using WeatherDashboard.Common;
+using WeatherDashboard.API;
+using Windows.Storage;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -24,6 +26,8 @@ namespace WeatherDashboard.Pages
     public sealed partial class ForecastPage : Page
     {
         private NavigationHelper _navigationHelper;
+        private ApplicationDataContainer _adclocalSettings = ApplicationData.Current.LocalSettings;
+
 
         public ForecastPage()
         {
@@ -32,6 +36,27 @@ namespace WeatherDashboard.Pages
             _navigationHelper = new NavigationHelper(this);
             _navigationHelper.LoadState += _navigationHelper_LoadState;
             _navigationHelper.SaveState += _navigationHelper_SaveState;
+
+           // LoadWeather();
+        }
+
+        public async void LoadWeather()
+        {
+            OpenWeatherAPI openWeatherAPI = new OpenWeatherAPI();
+            if (_adclocalSettings.Values.ContainsKey("City"))
+            {
+                string sCity = _adclocalSettings.Values["City"].ToString();
+
+                WeatherJSON weather = await openWeatherAPI.GetCurrent(sCity);
+            }
+            else if (_adclocalSettings.Values.ContainsKey("lat") && _adclocalSettings.Values.ContainsKey("lng"))
+            {
+
+                double.TryParse(_adclocalSettings.Values["lat"].ToString(), out double lat);
+                double.TryParse(_adclocalSettings.Values["lng"].ToString(), out double lng);
+
+                WeatherJSON weather = await openWeatherAPI.GetCurrent(lat, lng);
+            }
         }
 
         protected override void OnNavigatedFrom(NavigationEventArgs e)

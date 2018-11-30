@@ -9,6 +9,43 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Grid>
-
+        <ListView  ItemsSource="{Binding ForecastJSON}">
+            <ListView.HeaderTemplate>
+                <DataTemplate>
+                    <Grid Padding="12" Background="{ThemeResource SystemBaseLowColor}">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="Datum en Tijd" Style="{ThemeResource CaptionTextBlockStyle}"/>
+                        <TextBlock Grid.Column="1" Text="Minimum Temperatuur" Style="{ThemeResource CaptionTextBlockStyle}"/>
+                        <TextBlock Grid.Column="2" Text="Maximum Temperatuur" Style="{ThemeResource CaptionTextBlockStyle}"/>
+                        <TextBlock Grid.Column="3" Text="Temperatuur" Style="{ThemeResource CaptionTextBlockStyle}"/>
+                        <TextBlock Grid.Column="4" Text="Windrichting" Style="{ThemeResource CaptionTextBlockStyle}"/>
+                    </Grid>
+                </DataTemplate>
+            </ListView.HeaderTemplate>
+            <ListView.ItemTemplate>
+                <DataTemplate x:Name="TableDataTemplate" >
+                    <Grid Height="48">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock  VerticalAlignment="Center" Style="{ThemeResource BaseTextBlockStyle}" Text="{Binding List.Main.Temp}"/>
+                        <TextBlock Grid.Column="1" VerticalAlignment="Center" Text="Testsaddddddddddddddddddddddddddddddddd"/>
+                        <TextBlock Grid.Column="2" VerticalAlignment="Center" Text="Test"/>
+                        <TextBlock Grid.Column="3" VerticalAlignment="Center" Text="Test"/>
+                        <TextBlock Grid.Column="4" VerticalAlignment="Center"  Text="Test" />
+                    </Grid>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
     </Grid>
 </Page>
