@@ -1,51 +1,42 @@
-﻿<Page
+﻿
+  <Page
     x:Class="WeatherDashboard.Pages.ForecastPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:WeatherDashboard.Pages"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Grid>
-        <ListView  ItemsSource="{Binding ForecastJSON.cs}">
-            <ListView.HeaderTemplate>
-                <DataTemplate>
-                    <Grid Padding="12" Background="{ThemeResource SystemBaseLowColor}">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="*"/>
-                        </Grid.ColumnDefinitions>
-                        <TextBlock Text="Datum en Tijd" Style="{ThemeResource CaptionTextBlockStyle}"/>
-                        <TextBlock Grid.Column="1" Text="Minimum Temperatuur" Style="{ThemeResource CaptionTextBlockStyle}"/>
-                        <TextBlock Grid.Column="2" Text="Maximum Temperatuur" Style="{ThemeResource CaptionTextBlockStyle}"/>
-                        <TextBlock Grid.Column="3" Text="Temperatuur" Style="{ThemeResource CaptionTextBlockStyle}"/>
-                        <TextBlock Grid.Column="4" Text="Windrichting" Style="{ThemeResource CaptionTextBlockStyle}"/>
-                    </Grid>
-                </DataTemplate>
-            </ListView.HeaderTemplate>
-            <ListView.ItemTemplate>
-                <DataTemplate>
-                    <Grid Padding="12" Background="{ThemeResource SystemBaseLowColor}">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="*"/>
-                        </Grid.ColumnDefinitions>
-                        <TextBlock  VerticalAlignment="Center" Style="{ThemeResource BaseTextBlockStyle}" Text="{Binding List.Main.Temp}"/>
-                        <TextBlock Grid.Column="1" VerticalAlignment="Center" Text="Testsaddddddddddddddddddddddddddddddddd"/>
-                        <TextBlock Grid.Column="2" VerticalAlignment="Center" Text="Test"/>
-                        <TextBlock Grid.Column="3" VerticalAlignment="Center" Text="Test"/>
-                        <TextBlock Grid.Column="4" VerticalAlignment="Center"  Text="Test" />
-                    </Grid>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
+      <controls:DataGrid 
+        x:Name="dgForecast"
+        AutoGenerateColumns="False">
+        <controls:DataGrid.Columns>
+          <controls:DataGridTextColumn 
+            Header="Datum en tijd" 
+            Width="Auto"
+            Binding="{Binding DateTime}"/>
+          <controls:DataGridTextColumn 
+            Header="Temperatuur" 
+            Width="Auto"
+            Binding="{Binding Temp}"/>
+          <controls:DataGridTextColumn 
+            Header="Minimale Temperatuur" 
+            Width="Auto"
+            Binding="{Binding TempMin}"/>
+          <controls:DataGridTextColumn 
+            Header="Maximale Temperatuur" 
+            Width="Auto"
+            Binding="{Binding TempMax}"/>
+          <controls:DataGridTextColumn 
+            Header="Windrichting" 
+            Width="Auto"
+            Binding="{Binding WindDeg}"/>
+        </controls:DataGrid.Columns>
+      </controls:DataGrid>
     </Grid>
 </Page>
+

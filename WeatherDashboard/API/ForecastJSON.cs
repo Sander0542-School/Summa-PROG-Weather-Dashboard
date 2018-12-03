@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace WeatherDashboard.API
 {
-    public partial class ForecastJson
+    public partial class ForecastJSON
     {
         [JsonProperty("cod")]
         [JsonConverter(typeof(ParseStringConverter))]
@@ -46,7 +46,7 @@ namespace WeatherDashboard.API
     public partial class List
     {
         [JsonProperty("dt")]
-        public long Dt { get; set; }
+        public double Dt { get; set; }
 
         [JsonProperty("main")]
         public MainClass Main { get; set; }

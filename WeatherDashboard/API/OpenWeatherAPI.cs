@@ -67,7 +67,7 @@ namespace WeatherDashboard.API
             return null;
         }
 
-        public async Task<WeatherJSON> GetForecast(double lat, double lng)
+        public async Task<ForecastJSON> GetForecast(double lat, double lng)
         {
             //Retrieve Json from server (with HTTPClient)
             using (HttpClient hcClient = new HttpClient())
@@ -78,7 +78,32 @@ namespace WeatherDashboard.API
                 try
                 {
                     string json = await hcClient.GetStringAsync(sUrl);
-                    WeatherJSON weatherJSON = JsonConvert.DeserializeObject<WeatherJSON>(json);
+                    ForecastJSON weatherJSON = JsonConvert.DeserializeObject<ForecastJSON>(json);
+
+                    return weatherJSON;
+                }
+                catch (Exception ex)
+                {
+                    //await new MessageDialog("Er is iets fout gegaan tijdens het ophalen van het weer voor de locatie.", "Kon weer niet ophalen").ShowAsync();
+                    await new MessageDialog(ex.Message, "Kon weer niet ophalen").ShowAsync();
+                }
+            }
+
+            return null;
+        }
+
+        public async Task<ForecastJSON> GetForecast(string sLocation)
+        {
+            //Retrieve Json from server (with HTTPClient)
+            using (HttpClient hcClient = new HttpClient())
+            {
+                // Build URL
+                string sUrl = "http://api.openweathermap.org/data/2.5/forecast?APPID=851aca63480282296a52f0a56934d673&q=" + sLocation;
+
+                try
+                {
+                    string json = await hcClient.GetStringAsync(sUrl);
+                    ForecastJSON weatherJSON = JsonConvert.DeserializeObject<ForecastJSON>(json);
 
                     return weatherJSON;
                 }

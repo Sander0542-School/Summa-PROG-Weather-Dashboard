@@ -15,6 +15,8 @@ using Windows.UI.Xaml.Navigation;
 using WeatherDashboard.Common;
 using WeatherDashboard.API;
 using Windows.Storage;
+using System.Collections.ObjectModel;
+using Newtonsoft.Json;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -37,7 +39,7 @@ namespace WeatherDashboard.Pages
             _navigationHelper.LoadState += _navigationHelper_LoadState;
             _navigationHelper.SaveState += _navigationHelper_SaveState;
 
-           // LoadWeather();
+            LoadWeather();
         }
 
         public async void LoadWeather()
@@ -46,16 +48,16 @@ namespace WeatherDashboard.Pages
             if (_adclocalSettings.Values.ContainsKey("City"))
             {
                 string sCity = _adclocalSettings.Values["City"].ToString();
-
-                WeatherJSON weather = await openWeatherAPI.GetCurrent(sCity);
+                
+                SetForecast(await openWeatherAPI.GetForecast(sCity));
             }
             else if (_adclocalSettings.Values.ContainsKey("lat") && _adclocalSettings.Values.ContainsKey("lng"))
             {
 
                 double.TryParse(_adclocalSettings.Values["lat"].ToString(), out double lat);
                 double.TryParse(_adclocalSettings.Values["lng"].ToString(), out double lng);
-
-                WeatherJSON weather = await openWeatherAPI.GetCurrent(lat, lng);
+                
+                SetForecast(await openWeatherAPI.GetForecast(lat, lng));
             }
         }
 
@@ -77,6 +79,65 @@ namespace WeatherDashboard.Pages
         private void _navigationHelper_LoadState(object sender, LoadStateEventArgs e)
         {
 
+        }
+
+        public void SetForecast(ForecastJSON forecastJSON)
+        {
+            var items = new List<DataGridForecastRow>();
+            foreach (List forecast in forecastJSON.List)
+            {
+                items.Add(new DataGridForecastRow(forecast));
+            }
+
+            dgForecast.ItemsSource = items;
+        }
+        
+        public class DataGridForecastRow
+        {
+            public string DateTime { get; set; }
+            public string Temp { get; set; }
+            public string TempMin { get; set; }
+            public string TempMax { get; set; }
+            public string WindDeg { get; set; }
+
+            public DataGridForecastRow(List forecast)
+            {
+                DateTime = new DateTime(1970, 1, 1, 0, 0, 0, 0, System.DateTimeKind.Utc).AddSeconds(forecast.Dt).ToString("dd-MM-yyyy HH:mm");
+                Temp = KToC(forecast.Main.Temp);
+                TempMin = KToC(forecast.Main.TempMin);
+                TempMax = KToC(forecast.Main.TempMax);
+                WindDeg = Richting(forecast.Wind.Deg);
+            }
+
+            private String Richting(String sDeg)
+            {
+                try
+                {
+                    Double dDeg = Convert.ToDouble(sDeg);
+                    string[] sRichting = { "Noord", "Noord-noord-oost", "Noord-oost", "Oost-noord-oost", "Oost", "Oost-zuid-oost", "Zuid-oost", "Zuid-zuid-oost", "Zuid", "Zuid-zuid-west", "Zuid-west", "West-zuid-west", "West", "West-noord-west", "Noord-West", "Noord-noord-west", "Noord" };
+                    return sRichting[(int)Math.Round(((double)dDeg * 10 % 3600) / 225)];
+                }
+                catch
+                {
+                    return "Geen richting gevonden";
+                }
+
+
+            }
+
+            private String KToC(Double dTemp)
+            {
+                try
+                {
+                    string sTemp;
+                    dTemp = Math.Round(dTemp - 273.15);
+                    return sTemp = dTemp.ToString() + "°C";
+                }
+                catch
+                {
+                    return "Geen info";
+                }
+            }
         }
     }
 }
